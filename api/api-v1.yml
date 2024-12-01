@@ -1,0 +1,71 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Library Management API
+
+paths:
+  /auth/register:
+    post:
+      operationId: RegisterUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRegisterRequest"
+      responses:
+        201:
+          description: "User Created and Token Issued"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  
+  /auth/login:
+    post:
+      operationId: LoginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLoginRequest"
+      responses:
+        200:
+          description: "User Logged In and Token Issued"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+components:
+  schemas:
+    UserRegisterRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        name: 
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+
+    UserLoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        message:
+          type: string
